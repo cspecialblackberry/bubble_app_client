@@ -9,7 +9,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/graphql': {
-        target: 'http://localhost:3000',
+        target: 'https://lit-ocean-20742-9fe344a27f35.herokuapp.com/',
         changeOrigin: true,
         secure: false,
       },
