@@ -1,0 +1,21 @@
+.new-post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 345px;
+    gap: 15px;
+}
+
+.new-post-label {
+    font-size: 1.2em;
+}
+
+.new-post-form textarea {
+    resize: none;
+    border-radius: 35px;
+    font-family: var(--main-text-font);
+}
+
+.submit-post {
+    width: 200px;
+}

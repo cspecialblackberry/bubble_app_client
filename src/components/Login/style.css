@@ -1,0 +1,23 @@
+.form-container {
+    display: flex;
+    gap: 10px;
+}
+
+.login-create-button {
+    width: 175px;
+}
+
+.show-button {
+    font-size: .7em;
+    height: 30px;
+    background-color: var(--light-green);
+}
+
+.show-button:hover {
+    background-color: var(--green);
+}
+
+.tab {
+    border-radius: 0;
+    background-color: var(--light-pink);
+}

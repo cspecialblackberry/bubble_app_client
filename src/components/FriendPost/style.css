@@ -1,0 +1,8 @@
+.friend-bubble {
+    border-radius: 35px;
+    gap: 10px;
+}
+
+.friend-bubble-footer {
+    justify-content: flex-end;
+}

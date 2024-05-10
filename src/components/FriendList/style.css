@@ -1,0 +1,12 @@
+.add-friend-btn, .remove-friend-btn, .view-profile-btn {
+    width: 160px;
+    margin-top: 20px;
+}
+
+.button-container {
+    font-family: var(--main-text-font);
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+
