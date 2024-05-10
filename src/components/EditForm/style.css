@@ -1,0 +1,7 @@
+.selected {
+    border: 5px goldenrod solid;
+}
+
+.unselected {
+    border: none;
+}
