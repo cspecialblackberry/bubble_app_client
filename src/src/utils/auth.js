@@ -1,4 +1,5 @@
 import { jwtDecode } from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
 
 class AuthService {
   getProfile() {
@@ -31,7 +32,7 @@ class AuthService {
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken)
 
-    window.location.assign('/home')
+    return true
   }
 
   logout() {

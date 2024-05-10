@@ -6,8 +6,11 @@ import { LOGIN } from '../../utils/mutations'
 import { ADD_USER } from '../../utils/mutations'
 import Auth from '../../utils/auth'
 import './style.css'
+import { useNavigate } from 'react-router'
 
 function LoginCreateAccount() {
+
+    const navigate = useNavigate()
 
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
@@ -39,6 +42,9 @@ function LoginCreateAccount() {
             console.log(res)
             const token = res.data.login.token;
             Auth.login(token)
+            if(Auth.loggedIn()){
+                navigate('/home')
+            }
         } catch (err) {
             console.error(err)
         }
