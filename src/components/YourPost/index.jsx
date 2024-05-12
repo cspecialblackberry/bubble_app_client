@@ -1,10 +1,15 @@
 import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack, Heading, Button, Text } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 import './style.css';
+import { ADD_REPLY } from '../../utils/mutations';
+import { useState } from 'react'
 
 const YourPost = (props) => {
     const { url, name, color, text, userId } = props;
+
     return (
+        <>
         <Card
             className='your-bubble'
             direction={{ base: 'column', sm: 'row' }}
@@ -16,7 +21,6 @@ const YourPost = (props) => {
             width={350}
             minHeight={200}
             display='flex'
-            // alignItems="center"
             flexDirection='row'
             padding={5}
             marginTop={3}
@@ -30,6 +34,7 @@ const YourPost = (props) => {
                 <CardFooter padding={0}>
                     <button
                         className='reply-button'
+                        type='button'
                         variant='solid'
                         style={{ backgroundColor: color }}
                     >
@@ -52,8 +57,8 @@ const YourPost = (props) => {
                     />
                 </Link>
             </Stack>
-
         </Card>
+        </>
     )
 }
 

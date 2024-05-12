@@ -6,11 +6,8 @@ import { LOGIN } from '../../utils/mutations'
 import { ADD_USER } from '../../utils/mutations'
 import Auth from '../../utils/auth'
 import './style.css'
-import { useNavigate } from 'react-router'
 
 function LoginCreateAccount() {
-
-    const navigate = useNavigate()
 
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
@@ -42,9 +39,6 @@ function LoginCreateAccount() {
             console.log(res)
             const token = res.data.login.token;
             Auth.login(token)
-            if(Auth.loggedIn()){
-                navigate('/home')
-            }
         } catch (err) {
             console.error(err)
         }
@@ -109,7 +103,7 @@ function LoginCreateAccount() {
                                                 borderRadius={20}
                                             />
                                             <InputRightElement width='4.5rem'>
-                                                <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
+                                                <button className='show-button' type='button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
                                                     {show ? 'Hide' : 'Show'}
                                                 </button>
                                             </InputRightElement>
@@ -155,7 +149,7 @@ function LoginCreateAccount() {
                                                 onChange={passwordChange}
                                             />
                                             <InputRightElement width='4.5rem'>
-                                                <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
+                                                <button className='show-button' type='button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
                                                     {show ? 'Hide' : 'Show'}
                                                 </button>
                                             </InputRightElement>

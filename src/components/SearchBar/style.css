@@ -55,3 +55,8 @@
     align-items: center;
     min-width: 200px;
   }
+
+  .no-users {
+    padding: 0px;
+    margin: 5px;
+  }

@@ -7,3 +7,16 @@ main {
 .bio {
     border-radius: 35px;
 }
+
+p {
+    margin-bottom: 0;
+}
+
+h1 {
+    font-weight: 900;
+}
+
+.button-size {
+    height: 32px;
+    width: 32px;
+}

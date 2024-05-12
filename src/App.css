@@ -77,6 +77,12 @@ h2 {
   font-family: var(--heading-font);
   font-size: 1.3em;
   font-weight: bold;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-family: var(--heading-font);
+  font-size: 1em;
 }
 
 button {

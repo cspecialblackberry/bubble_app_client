@@ -78,5 +78,3 @@ const FriendPost = (props) => {
 
 
 export default FriendPost;
-
-// CASEY-TODO: PADDING ON CARD BODY, CARD FLEX

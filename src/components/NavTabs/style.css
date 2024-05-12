@@ -71,7 +71,7 @@
     top: 40%; left: 40%;
     width: 55px;
     height: 55px;
-    animation-delay: 2s;
+    animation-delay: 3s;
     animation-duration: 20s;
     border: 1px solid #000;
     background-color: var(--light-blue);
@@ -94,7 +94,7 @@
     width: 15px;
     height: 15px;
     animation-delay: 1s;
-    animation-duration: 13s;
+    animation-duration: 11s;
     border: 1px solid #000;
     background-color: var(--light-blue);
     transition: 2s ease-in;

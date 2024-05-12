@@ -1,40 +1,63 @@
-import { useState } from "react";
+import { useState, Component, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
+import { SEARCH_USERS } from '../../utils/queries'
+import { useQuery } from '@apollo/client'
 
 import "./style.css";
+import { SearchResultsList } from "./SearchResultsList";
 
 export const SearchBar = ({ setResults }) => {
-  const [input, setInput] = useState("");
 
-  const fetchData = (value) => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((json) => {
-        const results = json.filter((user) => {
-          return (
-            value &&
-            user &&
-            user.name &&
-            user.name.toLowerCase().includes(value)
-          );
-        });
-        setResults(results);
-      });
-  };
+    const userSearch = useQuery(SEARCH_USERS)
+    // let users = []
 
-  const handleChange = (value) => {
-    setInput(value);
-    fetchData(value);
-  };
+    // if (userSearch.data) {
+    //     users = userSearch.data
+    //     console.log(users)
+    // }
 
-  return (
-    <div className="input-wrapper">
-      <FaSearch id="search-icon" />
-      <input
-        placeholder="Search people..."
-        value={input}
-        onChange={(e) => handleChange(e.target.value)}
-      />
-    </div>
-  );
+    // const [filteredResults, setFilteredResults] = useState(users)
+    const [allUsers, setAllUsers] = useState([])
+    const [filteredResults, setFilteredResults] = useState([])
+    const [searchQuery, setSearchQuery] = useState('')
+
+    const handleSearch = (event) => {
+        event.preventDefault()
+        const query = event.target.value
+        setSearchQuery(query)
+    }
+    const handleFilter = () => {
+        if (searchQuery === "") {
+            setFilteredResults([])
+        } else {
+            const filteredUsers = allUsers.filter((user) => user.username.toLowerCase().includes(searchQuery.toLowerCase()))
+            setFilteredResults(filteredUsers)
+        }
+    }
+
+    useEffect(() => {
+        if (userSearch.data) {
+            setAllUsers(userSearch.data.users)
+        }
+    }, [userSearch])
+
+    useEffect(() => {
+        handleFilter()
+    }, [searchQuery])
+
+    return (
+        <>
+            <div className="input-wrapper">
+                <FaSearch id="search-icon" />
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search people..."
+                    value={searchQuery}
+                    onChange={handleSearch}
+                />
+            </div>
+            {searchQuery !== "" && <SearchResultsList results={filteredResults} />}
+        </>
+    );
 };

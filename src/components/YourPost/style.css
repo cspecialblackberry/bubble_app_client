@@ -6,6 +6,7 @@
 .reply-button {
     font-family: var(--main-text-font);
     width: 100px;
+    margin: 5px;
 }
 
 .name-container {

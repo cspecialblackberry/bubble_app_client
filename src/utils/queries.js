@@ -87,3 +87,41 @@ export const QUERY_POST = gql`
         }
     }
 `
+
+export const SEARCH_PEOPLE = gql `
+query userSearch($username: String!) {
+    userSearch(username: $username) {
+      _id
+      name
+      username
+    }
+  }
+`
+
+// export const SearchUsers = gql`
+//   query($searchQuery: String) {
+//     listUsers(filter: {
+//       description: {
+//         contains: $searchQuery
+//       }
+//     }) {
+//       users {
+//         _id
+//         name
+//         username
+//       }
+//     }
+//   }
+//   `
+
+// export const ListUsers = gql`
+//   query {
+//     listUsers {
+//         users {
+//             _id
+//             name
+//             username
+//           }
+//     }
+//   }
+//   `

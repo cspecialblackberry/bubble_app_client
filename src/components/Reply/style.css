@@ -1,0 +1,44 @@
+.your-bubble {
+    width: 350px;
+    min-height: 200px;
+    border-radius: 35px;
+    gap: 10px;
+}
+
+.reply-bubble {
+    width: 300px;
+    min-height: 100px;
+}
+
+.reply-bubble p {
+    font-size: .9em;
+}
+
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+}
+
+.bubble-text {
+    padding: 0;
+}
+
+.name-container h2 {
+    font-size: 1.1em;
+}
+
+.reply-bubble h2 {
+    font-size: 1em;
+}
+
+.reply-button {
+    font-family: var(--main-text-font);
+    width: 100px;
+    margin: 5px;
+}
+
+.name-container {
+    width: 40%;
+    margin-bottom: 10px;
+}
