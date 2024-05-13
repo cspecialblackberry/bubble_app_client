@@ -8,9 +8,6 @@ import Auth from '../../utils/auth'
 import { useNavigate } from 'react-router-dom'
 
 export default function NewPost() {
-    if (Auth.loggedIn() === false) {
-        window.location.replace('/')
-    }
     let [value, setValue] = React.useState('')
     let navigate = useNavigate();
 

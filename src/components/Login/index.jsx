@@ -80,7 +80,7 @@ function LoginCreateAccount() {
         })
         toast.promise(examplePromise, {
             success: { title: 'Success!', description: 'Your account has been created' },
-            error: { title: 'Error', description: 'There was a probelm creating your account. Please try again.' },
+            error: { title: 'Error', description: 'There was a problem creating your account. Please try again.' },
             loading: { title: 'Sit tight...', description: 'We are creating your account' },
         })
         try {
@@ -152,8 +152,8 @@ function LoginCreateAccount() {
                             <TabPanel padding={3}>
                                 <form onSubmit={handleCreate}>
                                     <FormControl isRequired marginBottom={5} isInvalid={nameError}>
-                                        <FormLabel>Full Name</FormLabel>
-                                        <Input placeholder='Enter your full name'
+                                        <FormLabel>Name</FormLabel>
+                                        <Input placeholder='Enter your name'
                                             borderRadius={20}
                                             value={name}
                                             onChange={nameChange} />

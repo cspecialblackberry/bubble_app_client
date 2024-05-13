@@ -9,10 +9,6 @@ import Reply from "../../components/Reply";
 import { useState, useEffect } from 'react'
 
 export default function Home() {
-  if (Auth.loggedIn() === false) {
-    window.location.replace('/')
-  }
-
   const [postsArr, setPostsArr] = useState([])
   const [repliesArr, setRepliesArr] = useState([])
 
@@ -32,14 +28,13 @@ export default function Home() {
       setPostsArr(filteredPosts)
       let replies = []
       filteredPosts.map((post) => {
-        post.replies.map((reply) => replies.push({...reply, postId: post._id}))
+        post.replies.map((reply) => replies.push({ ...reply, postId: post._id }))
       })
-      console.log(replies)
+      console.log('replies:', replies)
       setRepliesArr(replies)
     }
   }, [data, postData])
-  console.log(postData)
-  
+
   const [deletePost] = useMutation(DELETE_POST)
   const [deleteReply] = useMutation(DELETE_REPLY)
 
@@ -56,7 +51,7 @@ export default function Home() {
     }
   }
 
-  const handleDeleteReply = async ( postId, replyId) => {
+  const handleDeleteReply = async (postId, replyId) => {
     console.log(postId, replyId)
     try {
       await deleteReply({
@@ -97,9 +92,42 @@ export default function Home() {
                 setRepliesArr={setRepliesArr}
                 handleDelete={handleDelete}
                 index={index}
+                isFriend={true}
               >
               </Reply>
               {repliesArr.filter((reply) => reply.postId === post._id).map(reply => (
+                <Reply
+                  key={reply._id}
+                  replyId={reply._id}
+                  postId={post._id}
+                  type='reply'
+                  name={reply.username}
+                  text={reply.responseText}
+                  userId={reply.user}
+                  handleDeleteReply={handleDeleteReply}
+                  index={index}
+                  isOnYourPost={true}
+                >
+                </Reply>
+              ))
+              }
+            </article>
+          )
+        } else {
+          return (
+            <article key={post._id} className="post-block">
+            <Reply
+              key={post._id}
+              postId={post._id}
+              type='main'
+              text={post.postText}
+              userId={post.user}
+              repliesArr={repliesArr}
+              setRepliesArr={setRepliesArr}
+              isFriend={true}
+            >
+            </Reply>
+            {repliesArr.filter((reply) => reply.postId === post._id).map(reply => (
                 <Reply
                   key={reply._id}
                   replyId={reply._id}
@@ -115,10 +143,6 @@ export default function Home() {
               ))
               }
             </article>
-          )
-        } else {
-          return (
-            <FriendPost key={post._id} postId={post._id} text={post.postText} userId={post.user}></FriendPost>
           )
         }
       })}

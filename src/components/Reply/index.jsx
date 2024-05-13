@@ -9,23 +9,19 @@ import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
-    const { url, isFriend, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr, setRepliesArr } = props;
+    const { url, isFriend, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr, setRepliesArr, isOnYourPost } = props;
 
-    console.log('userid', userId)
     // console.log(userId, postId, index, replyId)
     // console.log(repliesArr)
 
     const [openReply, setOpenReply] = useState(false);
-
-    const openReplyForm = () => {
-        setOpenReply(true);
-    }
 
     const token = Auth.getProfile();
 
     const isReply = type === 'reply';
     const isOwnPost = userId === token.data._id;
     const isMainPost = type === 'main';
+
 
     const userQuery = useQuery(QUERY_USER_INFO, {
         variables: { _id: userId }
@@ -71,28 +67,27 @@ const Reply = (props) => {
                             </p>
                         </CardBody>
                         <CardFooter padding={0}>
-                            {openReply && <ReplyForm
+                            {isFriend ? isMainPost ? <ReplyForm
                                 openReply={openReply}
                                 setOpenReply={setOpenReply}
                                 postId={postId}
                                 repliesArr={repliesArr}
                                 setRepliesArr={setRepliesArr}
-                            ></ReplyForm>}
-                            {isFriend ? isMainPost ? <button
-                                className='reply-button'
-                                type='button'
-                                variant='solid'
-                                style={{ backgroundColor: userData.color }}
-                                onClick={openReplyForm}
-                            >
-                                REPLY
-                            </button> : <></> :<></>
+                                color={userData.color}
+                            ></ReplyForm> : <></> :<></>
                             }
-                            {isOwnPost && <button
+                            {(isOwnPost || isOnYourPost) && <button
                                 className='reply-button'
                                 variant='solid'
                                 style={{ backgroundColor: userData.color }}
-                                onClick={isMainPost ? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
+                                onClick={() => {
+                                    if (isMainPost) {
+                                        handleDelete(userId, postId, index);
+                                    } else {
+                                        handleDeleteReply(postId, replyId, index);
+                                    }
+                                }}
+                                // onClick={isMainPost ? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
                             >
                                 DELETE
                             </button>
@@ -117,11 +112,9 @@ const Reply = (props) => {
 export default Reply;
 
 // CASEY-TODO:
-// replies on profile page
-// rerendering page when reply is added
+// replies on profile page refresh
 // ensure friends' profile + replies show up using Reply component
-
-// delete reply if it's your reply or on your post
+// delete reply if it's on your post
 // reply sizing - smaller delete & padding?
 // "burst" instead of delete
 // remove console logs

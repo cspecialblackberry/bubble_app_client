@@ -17,10 +17,8 @@ import { useNavigate, useLocation } from 'react-router';
 import './style.css'
 
 function ReplyForm(props) {
-    const { postId, repliesArr, setRepliesArr } = props;
+    const { postId, repliesArr, setRepliesArr, color } = props;
 
-    console.log(repliesArr)
-    
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const [replyContent, setReplyContent] = useState('');
@@ -62,7 +60,8 @@ function ReplyForm(props) {
 
     return (
         <>
-            <button onClick={onOpen}>Open Modal</button>
+            <button className='reply-button'
+                variant='solid' type='button' style={{backgroundColor: color}} onClick={onOpen}>Reply</button>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
@@ -76,7 +75,6 @@ function ReplyForm(props) {
                             placeholder='Enter your reply'
                         />
                         <div>
-                            {/* <button type='button' mr={3} onClick={onClose}>Close</button> */}
                             <button type='button' className='submit-reply' onClick={handleReply}>Submit Reply</button>
                         </div>
                     </ModalBody>
