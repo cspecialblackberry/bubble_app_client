@@ -20,3 +20,14 @@ h1 {
     height: 32px;
     width: 32px;
 }
+
+.edit-prof-btn {
+    display: flex;
+    align-self: flex-end;
+}
+
+@media screen and (min-width: 480px) {
+    .edit-prof-btn {
+        align-self: center;
+    }
+}

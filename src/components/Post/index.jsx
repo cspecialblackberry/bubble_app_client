@@ -8,7 +8,7 @@ import Auth from '../../utils/auth';
 import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
-const Reply = (props) => {
+const Post = (props) => {
     const { url, isFriend, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr, setRepliesArr, isOnYourPost } = props;
 
     // console.log(userId, postId, index, replyId)
@@ -109,7 +109,7 @@ const Reply = (props) => {
     }
 }
 
-export default Reply;
+export default Post;
 
 // CASEY-TODO:
 // replies on profile page refresh

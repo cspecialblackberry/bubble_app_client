@@ -89,6 +89,7 @@ button {
   font-family: var(--main-text-font);
   text-transform: uppercase;
   letter-spacing: 1px;
+  color: #000;
   background-color: var(--light-purple);
   display: flex;
   justify-content: center;
@@ -102,7 +103,6 @@ button {
 button:hover {
   background-color: var(--purple);
   font-weight: bold;
-  /* color: #fff; */
 }
 
 label {
@@ -120,4 +120,10 @@ label {
 img {
   width: 100%;
   display: block;
+}
+
+@media screen and (min-width: 480px) {
+  h1 {
+    font-size: 2.3em;
+  }
 }

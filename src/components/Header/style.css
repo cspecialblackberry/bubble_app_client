@@ -8,3 +8,9 @@ header {
     max-width: 330px;
     padding: 10px;
 }
+
+@media screen and (min-width: 480px) {
+    .logo {
+        max-width: 480px;
+    }
+}

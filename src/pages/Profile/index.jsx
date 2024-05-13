@@ -9,7 +9,7 @@ import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
 import { DELETE_POST, DELETE_REPLY } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
-import Reply from '../../components/Reply';
+import Reply from '../../components/Post';
 import { ADD_FRIEND } from '../../utils/mutations';
 
 const Profile = () => {
@@ -27,23 +27,27 @@ const Profile = () => {
 
     const yourInfo = useQuery(QUERY_USER, { variables: { _id: yourId }, fetchPolicy: 'network-only' })
     const { loading: loading, data: postsData } = useQuery(QUERY_POSTS)
-    const { loading: userLoading, data: userInfo} = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
+    const { loading: userLoading, data: userInfo } = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
 
     useEffect(() => {
-        console.log('effect1')
         if (from === yourId) {
             setHasEditButton(true);
         }
     }, [userInfo]);
 
     useEffect(() => {
-        console.log('use effect:')
-        console.log(postsData, userInfo)
-        console.log(isFriend, hasEditButton)
-        console.log(postsArr, repliesArr)
+        if (yourInfo.data) {
+            if (yourId === from || yourInfo.data.user.friends.includes(from)) {
+                setIsFriend(true)
 
+            } else {
+                setIsFriend(false)
+            }
+        }
+    }, [userInfo])
+
+    useEffect(() => {
         if (postsData && userInfo) {
-            console.log(postsData.posts)
             let posts = postsData.posts
             const filteredPosts = posts.filter((post) => post.user === userInfo.user._id).toReversed()
             setPostsArr(filteredPosts)
@@ -51,29 +55,9 @@ const Profile = () => {
             filteredPosts.map((post) => post.replies.map((reply) => {
                 replies.push({ ...reply, postId: post._id })
             }))
-            console.log(replies)
             setRepliesArr(replies)
         }
-    }, [postsData, userInfo])
-
-    useEffect(() => {
-        console.log('effect2')
-        console.log(isFriend, '1')
-        if (yourInfo.data) {
-            if (yourId !== from || !yourInfo.data.user.friends.includes(from)) {
-                setIsFriend(false)
-                
-            }
-        }
-        console.log(isFriend, '2')
     }, [userInfo])
-
-// changing a state value rerenders the component
-// the component is rendering multiple times bc you are changing so many state variables
-// change them at the right time and it will work correctly
-// the replies array is correct on the first render and wrong on the second one
-
-   
 
     const [deletePost] = useMutation(DELETE_POST)
 
@@ -99,7 +83,6 @@ const Profile = () => {
                 variables: { postId: postId, replyId: replyId }
             })
             const index = repliesArr.indexOf(repliesArr.find((reply) => reply._id === replyId))
-            console.log(index)
             let updatedReplies = [...repliesArr]
             updatedReplies.splice(index, 1)
             setRepliesArr(updatedReplies)
@@ -142,7 +125,7 @@ const Profile = () => {
                         <Text color='black' bgColor='white' border='2px' borderColor={userInfo.user.color}>{userInfo.user.bio || "New to bubble!"}</Text>
                     </Box >
                     {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.user}></EditForm>
-                        : <IconButton aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
+                        : <IconButton className='edit-prof-btn' aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick}></IconButton> : <></>}
                     {!isFriend ? <button
                         variant='solid'
                         // style={{ backgroundColor: color }}

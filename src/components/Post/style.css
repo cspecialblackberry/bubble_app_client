@@ -38,7 +38,28 @@
     margin: 5px;
 }
 
+.reply-bubble button {
+    width: 70px;
+    height: 35px;
+    font-size: .8em;
+}
+
 .name-container {
     width: 40%;
     margin-bottom: 10px;
+}
+
+@media screen and (min-width: 480px) {
+    .your-bubble {
+        width: 600px;
+    }
+
+    .reply-bubble {
+        width: 400px;
+    }
+
+    .content-container {
+        padding: 10px;
+    }
+
 }

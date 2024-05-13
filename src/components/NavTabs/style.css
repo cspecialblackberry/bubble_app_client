@@ -12,18 +12,6 @@
     padding-bottom: 5px;
 }
 
-/* .nav-tabs a:hover::before,
-.nav-link-active::before {
-    content: '';
-    display: block;
-    position: relative;
-    z-index: 1;
-    border-radius: 100vw;
-    height: 35px;
-    width: 35px;
-    background-color: #000;
-} */
-
 .new-post-icon {
     position: relative;
     z-index: 1;
@@ -42,12 +30,6 @@
     border-radius: 50%;
     width: 0px;
     height: 0px;
-
-    /* top: 25%; left: 4%;
-    transform: translate(-50%, -50%);
-    border: 1px solid #fff;
-    z-index: 10; */
-
     animation-delay: 0;
     animation-timing-function: linear;
 }
@@ -57,7 +39,8 @@
 }
 
 .new-post-icon:hover .floating-bubbles li:nth-child(1) {
-    top: 25%; left: 45%;
+    top: 25%;
+    left: 45%;
     width: 10px;
     height: 10px;
     animation-delay: 0;
@@ -68,7 +51,8 @@
 }
 
 .new-post-icon:hover .floating-bubbles li:nth-child(2) {
-    top: 40%; left: 40%;
+    top: 40%;
+    left: 40%;
     width: 55px;
     height: 55px;
     animation-delay: 3s;
@@ -79,7 +63,8 @@
 }
 
 .new-post-icon:hover .floating-bubbles li:nth-child(3) {
-    top: 20%; left: 30%;
+    top: 20%;
+    left: 30%;
     width: 22px;
     height: 22px;
     animation-delay: 1s;
@@ -90,7 +75,8 @@
 }
 
 .new-post-icon:hover .floating-bubbles li:nth-child(4) {
-    top: 25%; left: 30%;
+    top: 25%;
+    left: 30%;
     width: 15px;
     height: 15px;
     animation-delay: 1s;
@@ -101,7 +87,8 @@
 }
 
 .new-post-icon:hover .floating-bubbles li:nth-child(5) {
-    top: 25%; left: 30%;
+    top: 25%;
+    left: 30%;
     width: 44px;
     height: 44px;
     animation-delay: 1s;
@@ -111,39 +98,15 @@
     transition: 2s ease-in;
 }
 
-/* .floating-bubbles figure:nth-of-type(2) {
-    transition-delay: 1.2s;
-}
-
-.floating-bubbles figure:nth-of-type(3) {
-    transition-delay: .6s;
-}
-
-.floating-bubbles figure:nth-of-type(3) {
-    transition-delay: .2s;
-} */
-
-/* .floating-bubbles:hover figure:nth-of-type(1) {
-    display: block;
-    position: absolute;
-    top: -100px; left: 0px;
-    width: 100px;
-    height: 100px;
-    border: 1px solid #000;
-    transition: .7s ease-out;
-} */
-
 @keyframes bubble {
     0% {
         -webkit-transform: translateY(0);
     }
+
     100% {
         -webkit-transform: translateY(-300px);
     }
 }
-
-
-
 
 .home-icon,
 .profile-icon,
@@ -154,4 +117,20 @@
     padding-right: 5px;
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.footer-text {
+    display: none;
+    font-size: .75rem;
+}
+
+@media only screen and (min-width: 480px){
+    h2.footer-text {
+        display: inline-block;
+        margin: none;
+        padding: none;
+    }
+    .footer-img {
+        display: none;
+    }
 }
