@@ -11,21 +11,31 @@ import {
 import { useDisclosure } from '@chakra-ui/react';
 import { ADD_REPLY } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Auth from '../../utils/auth';
-
+import { useNavigate, useLocation } from 'react-router';
+import './style.css'
 
 function ReplyForm(props) {
-    const { postId } = props;
+    const { postId, repliesArr, setRepliesArr } = props;
+
+    console.log(repliesArr)
+    
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     const [replyContent, setReplyContent] = useState('');
+
     const [addReply] = useMutation(ADD_REPLY);
     const token = Auth.getProfile();
     const userId = token.data._id;
 
-    const handleReply = async () => {
+    let navigate = useNavigate();
+    const location = useLocation();
+    const currentPage = location.pathname;
+
+    const handleReply = async (event) => {
+        event.preventDefault();
         try {
-            console.log('POSTID', postId)
             const res = await addReply({
                 variables: {
                     postId: postId,
@@ -33,7 +43,18 @@ function ReplyForm(props) {
                     responseText: replyContent,
                 }
             });
+            console.log(res.data.addReply._id)
+            const newReply = {
+                postId,
+                responseText: replyContent,
+                user: userId,
+                _id: res.data.addReply._id
+            }
+            const newReplies = [...repliesArr]
+            newReplies.push(newReply)
+            setRepliesArr(newReplies)
             console.log('hit');
+            onClose();
         } catch (error) {
             console.error(error);
         }
@@ -45,44 +66,29 @@ function ReplyForm(props) {
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
-                    <ModalCloseButton />
+                <ModalContent className='reply-modal'>
+                    <h2>Add a reply</h2>
+                    <ModalCloseButton className='close-btn' />
                     <ModalBody>
-                        <p>Repy to the bubble</p>
                         <textarea
                             value={replyContent}
                             onChange={(e) => setReplyContent(e.target.value)}
                             placeholder='Enter your reply'
                         />
+                        <div>
+                            {/* <button type='button' mr={3} onClick={onClose}>Close</button> */}
+                            <button type='button' className='submit-reply' onClick={handleReply}>Submit Reply</button>
+                        </div>
                     </ModalBody>
 
                     <ModalFooter>
-                        <button type='button' mr={3} onClick={onClose}>
-                            Close
-                        </button>
-                        <button type='button' onClick={handleReply}>Submit Reply</button>
+
                     </ModalFooter>
                 </ModalContent>
             </Modal>
         </>
     )
 }
-
-// const ReplyForm = () => {
-//     return (
-//         <>
-//             <form className='reply-form' onSubmit={handleReply}>
-//                 <textarea
-//                     value={replyContent}
-//                     onChange={(e) => setReplyContent(e.target.value)}
-//                     placeholder='Reply to the bubble'
-//                 />
-//                 <button type='submit'>Submit</button>
-//             </form>
-//         </>
-//     )
-// }
 
 export default ReplyForm
 

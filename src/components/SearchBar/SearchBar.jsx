@@ -13,7 +13,6 @@ export const SearchBar = ({ setResults }) => {
 
     // if (userSearch.data) {
     //     users = userSearch.data
-    //     console.log(users)
     // }
 
     // const [filteredResults, setFilteredResults] = useState(users)

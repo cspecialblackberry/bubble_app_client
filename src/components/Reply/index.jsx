@@ -9,7 +9,11 @@ import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
-    const { url, name, color, text, userId, type, postId } = props;
+    const { url, isFriend, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr, setRepliesArr } = props;
+
+    console.log('userid', userId)
+    // console.log(userId, postId, index, replyId)
+    // console.log(repliesArr)
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -27,18 +31,17 @@ const Reply = (props) => {
         variables: { _id: userId }
     })
 
-    const postData = useQuery(QUERY_POSTS, {
-        variables: {
-            _id: postId }
-    })
-    console.log('POSTDATA', postData.data)
+    // const postData = useQuery(QUERY_POSTS, {
+    //     variables: {
+    //         _id: postId }
+    // })
 
     let userData
     if (userQuery.data) {
         userData = userQuery.data.user
     }
     if (userQuery.error) {
-        console.log(userQuery.error)
+        console.error(userQuery.error)
     }
     if (userQuery.loading) {
         return (
@@ -59,7 +62,7 @@ const Reply = (props) => {
                     display='flex'
                     flexDirection={isOwnPost ? 'row' : 'row-reverse'}
                     padding={5}
-                    marginTop={3}
+                    marginTop={-.4}
                 >
                     <Stack className='content-container' textAlign={isOwnPost ? 'left' : 'right'}>
                         <CardBody padding={0}>
@@ -68,8 +71,14 @@ const Reply = (props) => {
                             </p>
                         </CardBody>
                         <CardFooter padding={0}>
-                            {openReply && <ReplyForm openReply={openReply} setOpenReply={setOpenReply} postId={postId}></ReplyForm>}
-                            {isMainPost && <button
+                            {openReply && <ReplyForm
+                                openReply={openReply}
+                                setOpenReply={setOpenReply}
+                                postId={postId}
+                                repliesArr={repliesArr}
+                                setRepliesArr={setRepliesArr}
+                            ></ReplyForm>}
+                            {isFriend ? isMainPost ? <button
                                 className='reply-button'
                                 type='button'
                                 variant='solid'
@@ -77,12 +86,13 @@ const Reply = (props) => {
                                 onClick={openReplyForm}
                             >
                                 REPLY
-                            </button>
+                            </button> : <></> :<></>
                             }
                             {isOwnPost && <button
                                 className='reply-button'
                                 variant='solid'
                                 style={{ backgroundColor: userData.color }}
+                                onClick={isMainPost ? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
                             >
                                 DELETE
                             </button>
@@ -106,11 +116,15 @@ const Reply = (props) => {
 
 export default Reply;
 
-// CASEY-TODO: margin-top on replies
-// add reply form + function
-// delete reply if it's your reply or on your post
-// single bubble icon for home
+// CASEY-TODO:
 // replies on profile page
+// rerendering page when reply is added
 // ensure friends' profile + replies show up using Reply component
+
+// delete reply if it's your reply or on your post
+// reply sizing - smaller delete & padding?
+// "burst" instead of delete
+// remove console logs
 // comment out YourPost + FriendPost to ensure it works without them
 // media queries
+// auto login?

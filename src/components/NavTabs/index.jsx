@@ -14,15 +14,15 @@ function NavTabs() {
         <ul className="nav-tabs">
             <li className="home-icon">
                 <Link
-                    to="/home"
+                    to={isLoggedIn ? "/home" : '/'}
                     className={currentPage === '/' ? 'nav-link-active' : 'nav-link'}
                 >
-                    <img src="bubbles-icon.svg" alt="Home Page" />
+                    <img src="bubble-icon.svg" alt="Home Page" />
                 </Link>
             </li>
             <li className="profile-icon">
                 <Link
-                    to="/profile"
+                    to={isLoggedIn ? "/profile" : '/'}
                     state={{ from: loggedInUserID }}
                     className={currentPage === '/profile' ? 'nav-link-active' : 'nav-link'}
                 >
@@ -31,7 +31,7 @@ function NavTabs() {
             </li>
             <li className="new-post-icon">
                 <Link
-                    to="/newpost"
+                    to={isLoggedIn ? "/newpost" : '/'}
                     className={currentPage === '/newpost' ? 'nav-link-active' : 'nav-link'}
                 >
                     <img src="bubble-wand-icon.svg" alt="Create New Post" />
@@ -46,7 +46,7 @@ function NavTabs() {
             </li>
             <li className="friends-icon">
                 <Link
-                    to="/friends"
+                    to={isLoggedIn ? "/friends" : '/'}
                     className={currentPage === '/friends' ? 'nav-link-active' : 'nav-link'}
                 >
                     <img src="friends-icon.svg" alt="My Friends" />

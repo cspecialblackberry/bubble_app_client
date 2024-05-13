@@ -1,8 +1,9 @@
-import { Card, CardBody, CardFooter, Stack, Avatar, AbsoluteCenter } from '@chakra-ui/react';
+import { Card, CardBody, Stack, Avatar, AbsoluteCenter } from '@chakra-ui/react';
 import './style.css'
+import {Link} from 'react-router-dom'
 
-const FriendList = (props) => {
-    const { url, name, color, text, userId } = props;
+const FriendList = ({ avatar, name, color, userId, friendId, handleRemove, index }) => {
+
     return (
         <Card
             className='friend-bubble'
@@ -19,31 +20,34 @@ const FriendList = (props) => {
             padding={5}
             marginTop={3}
         >
-                <CardBody padding={0}>
+            <CardBody padding={0}>
                 <Stack className='friend-container' display='flex' flexDirection='column' alignItems='center'>
-                <AbsoluteCenter>
-                <h2>{name}</h2>
-                <Avatar
-                    size='md' src={url} name={name}
-                />
-                <div className="button-container"></div>
-                <button
-                        className='view-profile-btn'
-                        variant='solid'
-                        style= {{backgroundColor: color}}
-                    >
-                        View profile
-                    </button>
-                    <button
-                        className='remove-friend-btn'
-                        variant='solid'
-                        style= {{backgroundColor: color}}
-                    >
-                        Remove friend
-                    </button>
-                </AbsoluteCenter>
-            </Stack>
-                </CardBody>
+                    <AbsoluteCenter>
+                        <h2>{name}</h2>
+                        <Avatar
+                            size='md' src={avatar} name={name}
+                        />
+                        <div className="button-container"></div>
+                        <Link to='/profile' state={{from: friendId}}>
+                        <button
+                            className='view-profile-btn'
+                            variant='solid'
+                            style={{ backgroundColor: color }}
+                        >
+                            View profile
+                        </button>
+                        </Link>
+                        <button
+                            className='remove-friend-btn'
+                            variant='solid'
+                            style={{ backgroundColor: color }}
+                            onClick={() => handleRemove(userId, friendId, index)}
+                        >
+                            Remove friend
+                        </button>
+                    </AbsoluteCenter>
+                </Stack>
+            </CardBody>
         </Card>
     )
 }

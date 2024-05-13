@@ -12,7 +12,7 @@ import Friends from './pages/Friends/index.jsx';
 import Login from './pages/Login/index.jsx';
 
 const client = new ApolloClient({
-  uri: 'https://lit-ocean-20742-9fe344a27f35.herokuapp.com/graphql',
+  uri: 'http://localhost:3000/graphql',
   cache: new InMemoryCache(),
 })
 

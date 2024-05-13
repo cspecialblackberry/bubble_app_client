@@ -77,10 +77,14 @@ export const ADD_REPLY = gql`
     mutation addReply($postId: ID!, $userId: ID!, $responseText: String!){
         addReply(postId: $postId, userId: $userId, responseText: $responseText){
         _id
-        replies {
-            _id
-            responseText
         }
+    }
+`
+
+export const DELETE_REPLY = gql`
+    mutation deleteReply($postId: ID!, $replyId: ID!){
+        deleteReply(postId: $postId, replyId: $replyId){
+        _id
         }
     }
 `

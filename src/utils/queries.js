@@ -97,31 +97,3 @@ query userSearch($username: String!) {
     }
   }
 `
-
-// export const SearchUsers = gql`
-//   query($searchQuery: String) {
-//     listUsers(filter: {
-//       description: {
-//         contains: $searchQuery
-//       }
-//     }) {
-//       users {
-//         _id
-//         name
-//         username
-//       }
-//     }
-//   }
-//   `
-
-// export const ListUsers = gql`
-//   query {
-//     listUsers {
-//         users {
-//             _id
-//             name
-//             username
-//           }
-//     }
-//   }
-//   `

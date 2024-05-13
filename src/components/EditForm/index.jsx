@@ -16,7 +16,8 @@ import { EDIT_USER } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
 import './style.css';
 
-const imageArray = ['/avatarImages/andrewKeymaster.jpg', //Photo by Andrew Keymaster on Unsplash 
+const imageArray = ['/bubble-favicon.svg', //Photo by David Clode on Unsplash 
+    '/avatarImages/andrewKeymaster.jpg', //Photo by Andrew Keymaster on Unsplash 
     '/avatarImages/braedonMcCloud.jpg', //Photo by Braedon McLeod on Unsplash 
     '/avatarImages/davidClode.jpg', //Photo by David Clode on Unsplash 
     '/avatarImages/thomasStephan.jpg', //Photo by Thomas Stephan on Unsplash
@@ -48,14 +49,12 @@ const imageArray = ['/avatarImages/andrewKeymaster.jpg', //Photo by Andrew Keyma
     '/avatarImages/israelPina.jpg', //Photo by Israel Pina on Unsplash
     '/avatarImages/davidClode3.jpg', //Photo by David Clode on Unsplash 
     '/avatarImages/elisabethArnold.jpg', //Photo by Elisabeth Arnold on Unsplash 
-    '/bubble-favicon.svg', //Photo by David Clode on Unsplash 
 ]
 
 
 
 const EditForm = (props) => {
     const { userInfo } = props
-    console.log(userInfo)
     const { setEditIsOpen } = props;
     const [nameInput, setNameInput] = useState(userInfo.name);
     const [bioInput, setBioInput] = useState(userInfo.bio);
@@ -76,10 +75,8 @@ const EditForm = (props) => {
     }
     const handleAvatarImageChange = (image) => {
         setAvatarImage(image)
-        console.log(avatarImage)
     }
     const handleSubmit = async () => {
-        console.log(nameInput, bioInput, value, avatarImage);
         const res = await editUser({
             variables: {
                 userId: userInfo._id,
@@ -89,7 +86,6 @@ const EditForm = (props) => {
                 avatar: avatarImage
             }
         })
-        console.log(res)
         setEditIsOpen(false)
         window.location.reload()
     }
@@ -128,12 +124,12 @@ const EditForm = (props) => {
                     <FormLabel>Choose Accent Color:</FormLabel>
                     <RadioGroup onChange={handleColorInputChange} value={value}>
                         <SimpleGrid direction='row' columns={3}>
+                            <Radio value='#B9E5FF' color='#B9E5FF' colorScheme='#B9E5FF' bg='#B9E5FF' borderColor='#B9E5FF'>Blue</Radio>
                             <Radio value='#FFDAE7' color='#FFDAE7' colorScheme='#FFDAE7' bg='#FFDAE7' borderColor='#FFDAE7'>Red</Radio>
-                            <Radio value='#FFD073' color='#FFD073' colorScheme='#FFD073' bg='#FFD073' borderColor='#FFD073'>Orange</Radio>
                             <Radio value='#FFF0B5' color='#FFF0B5' colorScheme='#FFF0B5' bg='#FFF0B5' borderColor='#FFF0B5'>Yellow</Radio>
                             <Radio value='#D8FFA5' color='#D8FFA5' colorScheme='#D8FFA5' bg='#D8FFA5' borderColor='#D8FFA5'>Green</Radio>
-                            <Radio value='#B9E5FF' color='#B9E5FF' colorScheme='#B9E5FF' bg='#B9E5FF' borderColor='#B9E5FF'>Blue</Radio>
                             <Radio value='#D9C5FF' color='#D9C5FF' colorScheme='#D9C5FF' bg='#D9C5FF' borderColor='#D9C5FF'>Purple</Radio>
+                            <Radio value='#FFD073' color='#FFD073' colorScheme='#FFD073' bg='#FFD073' borderColor='#FFD073'>Orange</Radio>
                         </SimpleGrid>
                     </RadioGroup>
 

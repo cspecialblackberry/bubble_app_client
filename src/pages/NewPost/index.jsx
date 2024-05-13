@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom'
 
 export default function NewPost() {
     if (Auth.loggedIn() === false) {
-        console.log('hit')
         window.location.replace('/')
     }
     let [value, setValue] = React.useState('')
@@ -18,7 +17,6 @@ export default function NewPost() {
     let handleInputChange = (event) => {
         let inputValue = event.target.value
         setValue(inputValue)
-        console.log(inputValue)
     }
 
     const [addPost, {error}] = useMutation(ADD_POST)
@@ -26,13 +24,10 @@ export default function NewPost() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const token = Auth.getProfile()
-        console.log(token.data._id)
-        console.log(value)
         try{
             const res = await addPost({
                 variables: {userId: token.data._id, postText: value}
             })
-            console.log(res)
         }catch(error){
             console.error(error)
         }

@@ -6,22 +6,17 @@ import { useQuery } from '@apollo/client'
 
 const FriendPost = (props) => {
     const { url, name, color, text, userId, postId } = props;
-    console.log(text, postId, userId)
 
     const userQuery = useQuery(QUERY_USER_INFO, {
         variables: { _id: userId }
     })
     let userData
-    console.log(userQuery)
     if (userQuery.data) {
         userData = userQuery.data.user
-        console.log(userData)
     }
     if (userQuery.error) {
-        console.log(userQuery.error)
+        console.error(userQuery.error)
     }
-
-    console.log(userData)
 
     if (userQuery.loading) {
         return (
@@ -36,7 +31,7 @@ const FriendPost = (props) => {
                 overflow='hidden'
                 variant='outline'
                 border='1px'
-                borderColor={color}
+                borderColor={userData.color}
                 borderRadius={35}
                 width={350}
                 minHeight={200}
@@ -51,7 +46,7 @@ const FriendPost = (props) => {
                     <Link to="/profile" state={{ from: userId }}>
                         <h2>{userData.name || userData.username}</h2>
                         <Avatar
-                            size='lg' src={url} name={userData.name}
+                            size='lg' src={userData.avatar} name={userData.name}
                         />
                     </Link>
                 </Stack>

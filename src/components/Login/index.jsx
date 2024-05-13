@@ -6,8 +6,11 @@ import { LOGIN } from '../../utils/mutations'
 import { ADD_USER } from '../../utils/mutations'
 import Auth from '../../utils/auth'
 import './style.css'
+import { useNavigate } from 'react-router'
 
 function LoginCreateAccount() {
+
+    const navigate = useNavigate()
 
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
@@ -15,14 +18,38 @@ function LoginCreateAccount() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
+    const [usernameError, setUsernameError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
+    const [nameError, setNameError] = useState(false)
 
-    const usernameChange = (e) => setUsername(e.target.value)
-    const passwordChange = (e) => setPassword(e.target.value)
-    const nameChange = (e) => setName(e.target.value)
+    const usernameChange = (e) => {
+        if(!e.target.value){
+            setUsernameError(true)
+        }else{
+            setUsernameError(false)
+        }
+        setUsername(e.target.value)
+    }
+    const passwordChange = (e) => {
+        if(!e.target.value){
+            setPasswordError(true)
+        }else{
+            setPasswordError(false)
+        }
+        setPassword(e.target.value)
+    }
+    const nameChange = (e) => {
+        if(!e.target.value){
+            setNameError(true)
+        }else{
+            setNameError(false)
+        }
+        setName(e.target.value)
+    }
 
-    const usernameError = username === ''
-    const passwordError = password === ''
-    const nameError = name === ''
+    // const usernameError = username === ''
+    // const passwordError = password === ''
+    // const nameError = name === ''
 
     const toast = useToast()
     const statuses = ['success', 'error', 'loading']
@@ -36,9 +63,11 @@ function LoginCreateAccount() {
             const res = await login({
                 variables: { username: username, password: password }
             })
-            console.log(res)
             const token = res.data.login.token;
             Auth.login(token)
+            if (Auth.loggedIn()) {
+                navigate('/home')
+            }
         } catch (err) {
             console.error(err)
         }
@@ -58,7 +87,6 @@ function LoginCreateAccount() {
             const res = await createAccount({
                 variables: { username: username, password: password, name: name }
             })
-            console.log(res)
             const token = res.data.login.token;
             Auth.login(token)
         } catch (err) {
@@ -169,7 +197,3 @@ function LoginCreateAccount() {
 }
 
 export default LoginCreateAccount
-
-// TODO: login and create account final touches
-// TODO: replies - each has a delete btn
-// TODO: map through array of replies - tied into yourpost and friendpost
